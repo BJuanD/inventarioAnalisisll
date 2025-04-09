@@ -112,3 +112,18 @@ tr:nth-child(even) {
   background-color: #dc3545;
   color: white;
 }
+
+/* Cantidad crítica (<3): rojo */
+tr.bajo-stock {
+  background-color: #ffe5e5 !important;
+  color: #d9534f;
+  font-weight: bold;
+}
+
+/* Cantidad baja (3-4): amarillo */
+tr.cantidad-baja {
+  background-color: #fff8e1 !important;
+  color: #856404;
+  font-weight: bold;
+}
+

@@ -1,14 +1,12 @@
 <div class="container">
   <h2>Inventario</h2>
 
-  <!-- Filtros -->
   <div class="filtros">
     <input type="text" placeholder="Filtrar por nombre" [(ngModel)]="filterName" (input)="applyFilter()">
     <input type="text" placeholder="Filtrar por tipo" [(ngModel)]="filterTipo" (input)="applyFilter()">
     <input type="text" placeholder="Filtrar por responsable" [(ngModel)]="filterResponsable" (input)="applyFilter()">
   </div>
 
-  <!-- Tabla del Inventario -->
   <table>
     <thead>
       <tr>
@@ -23,7 +21,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let material of materialesFilter">
+      <tr *ngFor="let material of materialesFilter"
+      [ngClass]="{
+        'bajo-stock': material.cantidad < 3,
+        'cantidad-baja': material.cantidad >= 3 && material.cantidad < 5
+        }">
+
         <td>{{ material.nombre }}</td>
         <td>{{ material.tipo }}</td>
         <td>{{ material.cantidad }}</td>
@@ -38,14 +41,25 @@
     </tbody>
   </table>
 
-  <!-- Formulario de Edición -->
-  <div *ngIf="materialEditando">
+  <div *ngIf="materialEditando" class="edicion">
     <h3>Editar Material</h3>
+
     <label>Nombre:</label>
     <input type="text" [(ngModel)]="materialEditando.nombre">
 
     <label>Cantidad:</label>
-    <input type="number" [(ngModel)]="materialEditando.cantidad">
+    <input
+      type="number"
+      [(ngModel)]="materialEditando.cantidad"
+      [ngClass]="{
+        'borde-rojo': materialEditando.cantidad < 3,
+        'borde-amarillo': materialEditando.cantidad >= 3 && materialEditando.cantidad < 5
+      }"
+    />
+
+    <div *ngIf="mensaje" [ngClass]="mensajeTipo === 'exito' ? 'mensaje-exito' : 'mensaje-error'">
+      {{ mensaje }}
+    </div>
 
     <button (click)="guardarEdicion()">Guardar</button>
     <button (click)="materialEditando = null">Cancelar</button>
