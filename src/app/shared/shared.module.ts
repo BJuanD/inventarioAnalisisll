@@ -5,12 +5,14 @@ import { AppRoutingModule } from '../app-routing.module';
 import { RegisterComponent } from '../pages/register/register.component';
 import { InventoryComponent } from '../pages/inventory/inventory.component';
 import { HomeComponent } from '../home/home.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const Module = [
   CommonModule,
   FormsModule,
   AppRoutingModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  HttpClientModule
 ]
 
 const Components = [

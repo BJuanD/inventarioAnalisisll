@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';// ajusta la ruta si es necesario
+import { InventarioService } from 'src/app/shared/inventario/inventario.service';
 
 @Component({
   selector: 'app-register',
@@ -9,46 +10,38 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegisterComponent {
 
   materialForm!: FormGroup;
-  materiales: any[] = [];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private inventarioService: InventarioService
+  ) {}
 
   ngOnInit() {
     this.materialForm = this.fb.group({
       nombre: ['', Validators.required],
-      descripcion: [''],
-      categoria: ['', Validators.required],
-      codigo: ['', Validators.required],
+      tipo: ['', Validators.required],
       cantidad: [0, [Validators.required, Validators.min(1)]],
-      unidad: ['', Validators.required],
-      proveedor: [''],
-      precioUnitario: [0, Validators.required],
-      ubicacion: [''],
-      fechaIngreso: [new Date().toISOString().slice(0, 10), Validators.required],
-      responsable: ['']
+      ubicacion: ['', Validators.required],
+      fecha_ingreso: ['', Validators.required],
+      responsable: ['', Validators.required]
     });
+    
   }
 
   guardarMaterial() {
-    if (this.materialForm.invalid) {
-      return;
+    if (this.materialForm.valid) {
+      this.inventarioService.agregarProducto(this.materialForm.value).subscribe({
+        next: res => {
+          alert('Producto guardado correctamente');
+          this.materialForm.reset();
+        },
+        error: err => {
+          console.error('Error al guardar producto', err);
+          alert('Error al guardar el producto');
+        }
+      });
     }
-  
-    const data = localStorage.getItem('materiales');
-    this.materiales = data ? JSON.parse(data) : [];
-  
-    const nuevoMaterial = this.materialForm.value;
-    this.materiales.push(nuevoMaterial);
-  
-    localStorage.setItem('materiales', JSON.stringify(this.materiales));
-  
-    this.materialForm.reset();
-    this.materialForm.patchValue({ fechaIngreso: new Date().toISOString().slice(0, 10) });
   }
   
-
-  eliminarMaterial(index: number) {
-    this.materiales.splice(index, 1);
-    localStorage.setItem('materiales', JSON.stringify(this.materiales));
-  }
+  
 }

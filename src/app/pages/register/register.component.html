@@ -1,66 +1,37 @@
-<div class="container">
-  <h2>Registro de Materiales</h2>
+<form [formGroup]="materialForm" (ngSubmit)="guardarMaterial()">
+  <div>
+    <label>Nombre:</label>
+    <input type="text" formControlName="nombre">
+  </div>
 
-  <form [formGroup]="materialForm" (ngSubmit)="guardarMaterial()">
-    <div>
-      <label>Nombre:</label>
-      <input type="text" formControlName="nombre">
-    </div>
+  <div>
+    <label>Tipo:</label>
+    <select formControlName="tipo">
+      <option value="Electrónica">Electrónica</option>
+      <option value="Papelería">Papelería</option>
+      <option value="Ferretería">Ferretería</option>
+    </select>
+  </div>
 
-    <div>
-      <label>Descripción:</label>
-      <textarea formControlName="descripcion"></textarea>
-    </div>
+  <div>
+    <label>Cantidad:</label>
+    <input type="number" formControlName="cantidad">
+  </div>
 
-    <div>
-      <label>Categoría:</label>
-      <select formControlName="categoria">
-        <option value="Electrónica">Electrónica</option>
-        <option value="Papelería">Papelería</option>
-        <option value="Ferretería">Ferretería</option>
-      </select>
-    </div>
+  <div>
+    <label>Ubicación:</label>
+    <input type="text" formControlName="ubicacion">
+  </div>
 
-    <div>
-      <label>Código/SKU:</label>
-      <input type="text" formControlName="codigo">
-    </div>
+  <div>
+    <label>Fecha de Ingreso:</label>
+    <input type="date" formControlName="fecha_ingreso">
+  </div>
 
-    <div>
-      <label>Cantidad:</label>
-      <input type="number" formControlName="cantidad">
-    </div>
+  <div>
+    <label>Responsable:</label>
+    <input type="text" formControlName="responsable">
+  </div>
 
-    <div>
-      <label>Unidad:</label>
-      <input type="text" formControlName="unidad">
-    </div>
-
-    <div>
-      <label>Proveedor:</label>
-      <input type="text" formControlName="proveedor">
-    </div>
-
-    <div>
-      <label>Precio Unitario:</label>
-      <input type="number" formControlName="precioUnitario">
-    </div>
-
-    <div>
-      <label>Ubicación en Almacén:</label>
-      <input type="text" formControlName="ubicacion">
-    </div>
-
-    <div>
-      <label>Fecha de Ingreso:</label>
-      <input type="date" formControlName="fechaIngreso">
-    </div>
-
-    <div>
-      <label>Responsable:</label>
-      <input type="text" formControlName="responsable">
-    </div>
-
-    <button type="submit" [disabled]="materialForm.invalid">Guardar Material</button>
-  </form>
-</div>
+  <button type="submit" [disabled]="materialForm.invalid">Guardar Material</button>
+</form>

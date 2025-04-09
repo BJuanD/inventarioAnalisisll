@@ -4,38 +4,38 @@
   <!-- Filtros -->
   <div class="filtros">
     <input type="text" placeholder="Filtrar por nombre" [(ngModel)]="filterName" (input)="applyFilter()">
-    <input type="text" placeholder="Filtrar por categoría" [(ngModel)]="filterCategory" (input)="applyFilter()">
-    <input type="text" placeholder="Filtrar por proveedor" [(ngModel)]="filterProo" (input)="applyFilter()">
+    <input type="text" placeholder="Filtrar por tipo" [(ngModel)]="filterTipo" (input)="applyFilter()">
+    <input type="text" placeholder="Filtrar por responsable" [(ngModel)]="filterResponsable" (input)="applyFilter()">
   </div>
 
   <!-- Tabla del Inventario -->
   <table>
-    <tr>
-      <th>Nombre</th>
-      <th>Categoría</th>
-      <th>Cantidad</th>
-      <th>Unidad</th>
-      <th>Precio Unitario</th>
-      <th>Costo Total</th>
-      <th>Ubicación</th>
-      <th>Proveedor</th>
-      <th>Fecha de Ingreso</th>
-      <th>Responsable</th>
-      <th>Acciones</th>
-    </tr>
-    <tr *ngFor="let material of materialesFilter" [class.bajo-stock]="material.cantidad < 5">
-      <td>{{ material.nombre }}</td>
-      <td>{{ material.categoria }}</td>
-      <td>{{ material.cantidad }}</td>
-      <td>{{ material.unidad }}</td>
-      <td>{{ material.precioUnitario | currency }}</td>
-      <td>{{ material.cantidad * material.precioUnitario | currency }}</td>
-      <td>{{ material.ubicacion }}</td>
-      <td>{{ material.proveedor }}</td>
-      <td>{{ material.fechaIngreso }}</td>
-      <td>{{ material.responsable }}</td>
-      <td><button (click)="editarMaterial(material)">🖊</button></td>
-    </tr>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>Cantidad</th>
+        <th>Ubicación</th>
+        <th>Estado</th>
+        <th>Fecha Ingreso</th>
+        <th>Responsable</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let material of materialesFilter">
+        <td>{{ material.nombre }}</td>
+        <td>{{ material.tipo }}</td>
+        <td>{{ material.cantidad }}</td>
+        <td>{{ material.ubicacion }}</td>
+        <td>{{ material.estado }}</td>
+        <td>{{ material.fecha_ingreso | date }}</td>
+        <td>{{ material.responsable }}</td>
+        <td>
+          <button (click)="editarMaterial(material)">🖊</button>
+        </td>
+      </tr>
+    </tbody>
   </table>
 
   <!-- Formulario de Edición -->
@@ -43,7 +43,7 @@
     <h3>Editar Material</h3>
     <label>Nombre:</label>
     <input type="text" [(ngModel)]="materialEditando.nombre">
-    
+
     <label>Cantidad:</label>
     <input type="number" [(ngModel)]="materialEditando.cantidad">
 
