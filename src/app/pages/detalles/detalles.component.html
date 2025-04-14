@@ -1,0 +1,16 @@
+<div class="modal-overlay" (click)="cerrarDetalles()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h3>Detalles del Material</h3>
+      <p><strong>Nombre:</strong> {{ material.nombre }}</p>
+      <p><strong>Código:</strong> {{ material.codigo }}</p>
+      <p><strong>Descripción:</strong> {{ material.descripcion }}</p>
+      <p><strong>Cantidad:</strong> {{ material.cantidad }}</p>
+      <p><strong>Estado:</strong> {{ material.estado }}</p>
+      <p><strong>Fecha de ingreso:</strong> {{ material.fecha_ingreso | date }}</p>
+      <p><strong>Ubicación:</strong> {{ material.ubicacion }}</p>
+      <p><strong>Responsable:</strong> {{ material.responsable }}</p>
+      <p><strong>Proveedor:</strong> {{ material.proveedor }}</p>
+      <button (click)="cerrarDetalles()">Cerrar</button>
+    </div>
+  </div>
+  

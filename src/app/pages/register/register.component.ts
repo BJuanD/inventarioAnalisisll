@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';// ajusta la ruta si es necesario
-import { InventarioService } from 'src/app/shared/inventario/inventario.service';
+import { InventarioService } from 'src/app/shared/services/inventario/inventario.service';
 
 @Component({
   selector: 'app-register',

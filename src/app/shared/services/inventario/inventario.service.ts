@@ -23,4 +23,8 @@ export class InventarioService {
     return this.http.put(`${this.baseUrl}/${id}`, producto);
   }
   
+  eliminarProducto(id: number) {
+    return this.http.delete(`${this.baseUrl}/${id}`);
+  }
+  
 }

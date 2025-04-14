@@ -6,23 +6,29 @@ import { RegisterComponent } from '../pages/register/register.component';
 import { InventoryComponent } from '../pages/inventory/inventory.component';
 import { HomeComponent } from '../home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DetallesComponent } from '../pages/detalles/detalles.component';
+import { ToasComponent } from './components/toast/toas/toas.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const Module = [
   CommonModule,
   FormsModule,
   AppRoutingModule,
   ReactiveFormsModule,
-  HttpClientModule
+  HttpClientModule,
+  BrowserAnimationsModule
 ]
 
 const Components = [
   RegisterComponent,
   InventoryComponent,
-  HomeComponent
+  HomeComponent,
+  DetallesComponent,
+  ToasComponent
 ]
 
 @NgModule({
-  declarations: [... Components],
+  declarations: [... Components, ToasComponent],
   imports: [
     ... Module
   ],

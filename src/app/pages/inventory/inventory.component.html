@@ -5,6 +5,9 @@
     <input type="text" placeholder="Filtrar por nombre" [(ngModel)]="filterName" (input)="applyFilter()">
     <input type="text" placeholder="Filtrar por tipo" [(ngModel)]="filterTipo" (input)="applyFilter()">
     <input type="text" placeholder="Filtrar por responsable" [(ngModel)]="filterResponsable" (input)="applyFilter()">
+    <input type="text" placeholder="Filtrar por estado" [(ngModel)]="filterEstado" (input)="applyFilter()">
+    <input type="number" placeholder="Filtrar por cantidad mínima" [(ngModel)]="filterCantidad" (input)="applyFilter()">
+
   </div>
 
   <table>
@@ -13,40 +16,37 @@
         <th>Nombre</th>
         <th>Tipo</th>
         <th>Cantidad</th>
-        <th>Ubicación</th>
-        <th>Estado</th>
-        <th>Fecha Ingreso</th>
-        <th>Responsable</th>
         <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let material of materialesFilter"
-      [ngClass]="{
-        'bajo-stock': material.cantidad < 3,
-        'cantidad-baja': material.cantidad >= 3 && material.cantidad < 5
-        }">
-
+      <tr *ngFor="let material of materialesFilter; trackBy: trackById" [@fadeOut]
+          [ngClass]="{
+            'bajo-stock': material.cantidad < 3,
+            'cantidad-baja': material.cantidad >= 3 && material.cantidad < 5,
+            'estado-danado': material.estado === 'Dañado'
+          }">
         <td>{{ material.nombre }}</td>
         <td>{{ material.tipo }}</td>
         <td>{{ material.cantidad }}</td>
-        <td>{{ material.ubicacion }}</td>
-        <td>{{ material.estado }}</td>
-        <td>{{ material.fecha_ingreso | date }}</td>
-        <td>{{ material.responsable }}</td>
         <td>
+          <button (click)="verDetalles(material)">🔍</button>
           <button (click)="editarMaterial(material)">🖊</button>
+          <button (click)="eliminarMaterial(material)">🗑️</button>
         </td>
       </tr>
     </tbody>
   </table>
+  
+  <app-detalles *ngIf="materialSeleccionado" [material]="materialSeleccionado" (cerrar)="materialSeleccionado = null"> </app-detalles>
+
 
   <div *ngIf="materialEditando" class="edicion">
     <h3>Editar Material</h3>
-
+  
     <label>Nombre:</label>
     <input type="text" [(ngModel)]="materialEditando.nombre">
-
+  
     <label>Cantidad:</label>
     <input
       type="number"
@@ -56,12 +56,21 @@
         'borde-amarillo': materialEditando.cantidad >= 3 && materialEditando.cantidad < 5
       }"
     />
+  
+    <label>Estado:</label>
+    <select [(ngModel)]="materialEditando.estado">
+      <option *ngFor="let estado of estadosDisponibles" [value]="estado">{{ estado }}</option>
+    </select>
 
-    <div *ngIf="mensaje" [ngClass]="mensajeTipo === 'exito' ? 'mensaje-exito' : 'mensaje-error'">
-      {{ mensaje }}
-    </div>
+    <label>Ubicación:</label>
+    <select [(ngModel)]="materialEditando.ubicacion">
+      <option *ngFor="let ubicacion of ubicacionesDisponibles" [value]="ubicacion">{{ ubicacion }}</option>
+    </select>
 
-    <button (click)="guardarEdicion()">Guardar</button>
+    <button (click)="guardarEdicion()" [disabled]="!materialEditando.estado || !materialEditando.ubicacion || materialEditando.cantidad < 0"> 
+      Guardar </button>
     <button (click)="materialEditando = null">Cancelar</button>
   </div>
+  
+  
 </div>

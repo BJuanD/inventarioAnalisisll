@@ -77,4 +77,25 @@ router.put('/:id', (req, res) => {
   });
 });
 
+// Eliminar un producto del inventario
+router.delete('/:id', (req, res) => {
+  const { id } = req.params;
+
+  const query = 'DELETE FROM inventario WHERE id = ?';
+
+  connection.query(query, [id], (error, results) => {
+    if (error) {
+      console.error('Error al eliminar el producto:', error);
+      return res.status(500).json({ message: 'Error al eliminar el producto.' });
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ message: 'Producto no encontrado.' });
+    }
+
+    res.json({ message: 'Producto eliminado correctamente.' });
+  });
+});
+
+
 module.exports = router;
