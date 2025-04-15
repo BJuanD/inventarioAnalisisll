@@ -11,6 +11,8 @@ export class RegisterComponent {
 
   materialForm!: FormGroup;
 
+  ubicacionesDisponibles = ['Almacén 1', 'Almacén 2', 'Almacén 3', 'Almacén 4', 'Bodega'];
+
   constructor(
     private fb: FormBuilder,
     private inventarioService: InventarioService
@@ -23,7 +25,10 @@ export class RegisterComponent {
       cantidad: [0, [Validators.required, Validators.min(1)]],
       ubicacion: ['', Validators.required],
       fecha_ingreso: ['', Validators.required],
-      responsable: ['', Validators.required]
+      responsable: ['', Validators.required],
+      codigo: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      proveedor: ['', Validators.required]
     });
     
   }

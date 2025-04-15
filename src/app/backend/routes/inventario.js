@@ -22,19 +22,20 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const {
     nombre, tipo, cantidad, ubicacion,
-    estado = 'Disponible', fecha_ingreso, responsable
+    estado = 'Disponible', fecha_ingreso, responsable,
+    codigo, descripcion, proveedor
   } = req.body;
 
   const fechaFormateada = formatearFecha(fecha_ingreso);
 
   const query = `
     INSERT INTO inventario 
-    (nombre, tipo, cantidad, ubicacion, estado, fecha_ingreso, responsable)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    (nombre, tipo, cantidad, ubicacion, estado, fecha_ingreso, responsable, codigo, descripcion, proveedor)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
 
   const values = [
-    nombre, tipo, cantidad, ubicacion, estado, fechaFormateada, responsable
+    nombre, tipo, cantidad, ubicacion, estado, fechaFormateada, responsable, codigo, descripcion, proveedor
   ];
 
   connection.query(query, values, (error, results) => {
@@ -48,7 +49,8 @@ router.put('/:id', (req, res) => {
   const { id } = req.params;
   const {
     nombre, tipo, cantidad, ubicacion,
-    estado = 'Disponible', fecha_ingreso, responsable
+    estado = 'Disponible', fecha_ingreso, responsable,
+    codigo, descripcion, proveedor
   } = req.body;
 
   console.log('Datos recibidos para actualizar:', req.body);
@@ -57,12 +59,12 @@ router.put('/:id', (req, res) => {
 
   const query = `
     UPDATE inventario 
-    SET nombre = ?, tipo = ?, cantidad = ?, ubicacion = ?, estado = ?, fecha_ingreso = ?, responsable = ?
+    SET nombre = ?, tipo = ?, cantidad = ?, ubicacion = ?, estado = ?, fecha_ingreso = ?, responsable = ?, codigo = ?, descripcion = ?, proveedor = ?
     WHERE id = ?
   `;
 
   const values = [
-    nombre, tipo, cantidad, ubicacion, estado, fechaFormateada, responsable, id
+    nombre, tipo, cantidad, ubicacion, estado, fechaFormateada, responsable, codigo, descripcion, proovedor, id
   ];
 
   connection.query(query, values, (error, results) => {

@@ -1,5 +1,10 @@
 <form [formGroup]="materialForm" (ngSubmit)="guardarMaterial()">
   <div>
+    <label>Código:</label>
+    <input type="text" formControlName="codigo">
+  </div>
+
+  <div>
     <label>Nombre:</label>
     <input type="text" formControlName="nombre">
   </div>
@@ -20,8 +25,14 @@
 
   <div>
     <label>Ubicación:</label>
-    <input type="text" formControlName="ubicacion">
+    <select formControlName="ubicacion">
+      <option value="">Seleccione una ubicación</option>
+      <option *ngFor="let ubicacion of ubicacionesDisponibles" [value]="ubicacion">
+        {{ ubicacion }}
+      </option>
+    </select>
   </div>
+  
 
   <div>
     <label>Fecha de Ingreso:</label>
@@ -31,6 +42,16 @@
   <div>
     <label>Responsable:</label>
     <input type="text" formControlName="responsable">
+  </div>
+
+  <div>
+    <label>Proveedor:</label>
+    <input type="text" formControlName="proveedor">
+  </div>
+  
+  <div>
+    <label>Descripción:</label>
+    <textarea formControlName="descripcion"></textarea>
   </div>
 
   <button type="submit" [disabled]="materialForm.invalid">Guardar Material</button>

@@ -30,7 +30,7 @@ export class InventoryComponent implements OnInit {
 
 
   estadosDisponibles = ['Nuevo', 'Usado', 'Dañado'];
-  ubicacionesDisponibles = ['Almacén', 'Bodega', 'Aula 1', 'Aula 2', 'Oficina'];
+  ubicacionesDisponibles = ['Almacén 1', 'Almacén 2', 'Almacén 3', 'Almacén 4', 'Bodega'];
 
   
   constructor(private inventarioService: InventarioService, private toastService: ToastService) {}
